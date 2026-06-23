@@ -14,12 +14,14 @@ router.get('/info', async (req, res) => {
         // We use youtube-dl-exec to get info for both youtube and generic media urls
         const fs = require('fs');
         const path = require('path');
+        const ffmpegInstaller = require('@ffmpeg-installer/ffmpeg');
         const options = {
             dumpSingleJson: true,
             noWarnings: true,
             noCheckCertificate: true,
             noPlaylist: true,
-            jsRuntimes: 'nodejs'
+            jsRuntimes: 'nodejs',
+            ffmpegLocation: ffmpegInstaller.path
         };
         const cookiesPath = path.join(__dirname, '..', 'cookies.txt');
         if (fs.existsSync(cookiesPath)) {
