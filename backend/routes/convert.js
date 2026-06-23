@@ -26,12 +26,8 @@ const processConversion = (jobId, job) => {
             ffmpegLocation: ffmpegInstaller.path,
             noWarnings: true,
             jsRuntimes: 'nodejs',
-            extractorArgs: 'youtube:player_client=android,ios,web'
+            extractorArgs: 'youtube:player_client=android'
         };
-        const cookiesPath = path.join(__dirname, '..', 'cookies.txt');
-        if (fs.existsSync(cookiesPath)) {
-            options.cookies = cookiesPath;
-        }
 
         const ytdlProcess = youtubedl.exec(url, options);
         
