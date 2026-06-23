@@ -25,12 +25,9 @@ const processConversion = (jobId, job) => {
             mergeOutputFormat: 'mkv',
             ffmpegLocation: ffmpegInstaller.path,
             noWarnings: true,
-            jsRuntimes: 'nodejs'
+            jsRuntimes: 'nodejs',
+            extractorArgs: 'youtube:player_client=tv,ios,android'
         };
-        const cookiesPath = path.join(__dirname, '..', 'cookies.txt');
-        if (fs.existsSync(cookiesPath)) {
-            options.cookies = cookiesPath;
-        }
 
         const ytdlProcess = youtubedl.exec(url, options);
         

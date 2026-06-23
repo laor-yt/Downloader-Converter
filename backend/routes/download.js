@@ -22,12 +22,9 @@ router.get('/info', async (req, res) => {
             noPlaylist: true,
             jsRuntimes: 'nodejs',
             ffmpegLocation: ffmpegInstaller.path,
-            format: 'bestaudio/best/worst'
+            format: 'bestaudio/best/worst',
+            extractorArgs: 'youtube:player_client=tv,ios,android'
         };
-        const cookiesPath = path.join(__dirname, '..', 'cookies.txt');
-        if (fs.existsSync(cookiesPath)) {
-            options.cookies = cookiesPath;
-        }
 
         const info = await youtubedl(url, options);
 
@@ -46,23 +43,7 @@ router.get('/info', async (req, res) => {
         });
     } catch (error) {
         console.error("Info Error:", error);
-        
-        // Debug: Try to get the format list to see what's actually available
-        let debugInfo = error.stderr || error.message || String(error);
-        try {
-            const fs = require('fs');
-            const path = require('path');
-            const cookiesPath = path.join(__dirname, '..', 'cookies.txt');
-            const debugOptions = { F: true, noWarnings: true, noCheckCertificate: true };
-            if (fs.existsSync(cookiesPath)) debugOptions.cookies = cookiesPath;
-            
-            const formatList = await youtubedl(url, debugOptions);
-            debugInfo += '\n\nAVAILABLE FORMATS:\n' + formatList;
-        } catch (debugError) {
-            debugInfo += '\n\nDEBUG LIST-FORMATS FAILED: ' + (debugError.stderr || debugError.message);
-        }
-
-        res.status(500).json({ error: 'Failed to fetch media info.', details: debugInfo });
+        res.status(500).json({ error: 'Failed to fetch media info.', details: error.stderr || error.message || String(error) });
     }
 });
 
