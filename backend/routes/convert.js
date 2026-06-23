@@ -26,8 +26,7 @@ const processConversion = (jobId, job) => {
             ffmpegLocation: ffmpegInstaller.path,
             noWarnings: true,
             jsRuntimes: 'nodejs',
-            extractorArgs: 'youtube:player_client=ios,android,web',
-            noInteractive: true
+            extractorArgs: 'youtube:player_client=ios,android,web'
         };
         const cookiesPath = path.join(__dirname, '..', 'cookies.txt');
         if (fs.existsSync(cookiesPath)) {
