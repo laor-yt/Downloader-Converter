@@ -45,7 +45,23 @@ router.get('/info', async (req, res) => {
         });
     } catch (error) {
         console.error("Info Error:", error);
-        res.status(500).json({ error: 'Failed to fetch media info.', details: error.stderr || error.message || String(error) });
+        
+        // Debug: Try to get the format list to see what's actually available
+        let debugInfo = error.stderr || error.message || String(error);
+        try {
+            const fs = require('fs');
+            const path = require('path');
+            const cookiesPath = path.join(__dirname, '..', 'cookies.txt');
+            const debugOptions = { F: true, noWarnings: true, noCheckCertificate: true };
+            if (fs.existsSync(cookiesPath)) debugOptions.cookies = cookiesPath;
+            
+            const formatList = await youtubedl(url, debugOptions);
+            debugInfo += '\n\nAVAILABLE FORMATS:\n' + formatList;
+        } catch (debugError) {
+            debugInfo += '\n\nDEBUG LIST-FORMATS FAILED: ' + (debugError.stderr || debugError.message);
+        }
+
+        res.status(500).json({ error: 'Failed to fetch media info.', details: debugInfo });
     }
 });
 
