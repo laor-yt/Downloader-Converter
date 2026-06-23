@@ -22,7 +22,8 @@ router.get('/info', async (req, res) => {
             noPlaylist: true,
             jsRuntimes: 'nodejs',
             ffmpegLocation: ffmpegInstaller.path,
-            format: 'bestaudio/best/worst'
+            format: 'bestaudio/best/worst',
+            extractorArgs: 'youtube:player_client=android,ios,web'
         };
         const cookiesPath = path.join(__dirname, '..', 'cookies.txt');
         if (fs.existsSync(cookiesPath)) {
