@@ -24,8 +24,7 @@ const processConversion = (jobId, job) => {
             mergeOutputFormat: 'mkv',
             ffmpegLocation: ffmpegInstaller.path,
             noWarnings: true,
-            jsRuntimes: 'nodejs',
-            extractorArgs: 'youtube:player_client=android,ios,web'
+            jsRuntimes: 'nodejs'
         };
         const cookiesPath = path.join(__dirname, '..', 'cookies.txt');
         if (fs.existsSync(cookiesPath)) {

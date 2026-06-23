@@ -19,8 +19,7 @@ router.get('/info', async (req, res) => {
             noWarnings: true,
             noCheckCertificate: true,
             noPlaylist: true,
-            jsRuntimes: 'nodejs',
-            extractorArgs: 'youtube:player_client=android,ios,web',
+            jsRuntimes: 'nodejs'
         };
         const cookiesPath = path.join(__dirname, '..', 'cookies.txt');
         if (fs.existsSync(cookiesPath)) {
