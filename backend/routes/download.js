@@ -23,8 +23,13 @@ router.get('/info', async (req, res) => {
             jsRuntimes: 'nodejs',
             ffmpegLocation: ffmpegInstaller.path,
             format: 'bestaudio/best/worst',
-            extractorArgs: 'youtube:player_client=tv,ios,android'
+            extractorArgs: 'youtube:player_client=ios,android,web',
+            noInteractive: true
         };
+        const cookiesPath = path.join(__dirname, '..', 'cookies.txt');
+        if (fs.existsSync(cookiesPath)) {
+            options.cookies = cookiesPath;
+        }
 
         const info = await youtubedl(url, options);
 
