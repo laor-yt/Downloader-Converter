@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 import axios from 'axios';
 
-const API_BASE_URL = `http://${window.location.hostname}:5000`;
+const API_BASE_URL = `https://downloader-converter-backend.onrender.com`;
 
 const calculateETA = (job) => {
   if (!job.progress || job.progress <= 0 || !job.createdAt) return null;
