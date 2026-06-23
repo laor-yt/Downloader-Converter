@@ -8,6 +8,7 @@ const jobManager = require('../jobManager');
 
 const fs = require('fs');
 const ffmpegInstaller = require('@ffmpeg-installer/ffmpeg');
+ffmpeg.setFfmpegPath(ffmpegInstaller.path);
 
 const processConversion = (jobId, job) => {
     let { url, format, resolution, orientation, quality, audioOnly } = job.params;
@@ -20,7 +21,7 @@ const processConversion = (jobId, job) => {
     try {
         const options = {
             o: tempVideoFile,
-            f: audioOnly ? 'bestaudio' : 'bestvideo+bestaudio/best',
+            f: audioOnly ? 'bestaudio/best/worst' : 'bestvideo+bestaudio/best/b/worst',
             mergeOutputFormat: 'mkv',
             ffmpegLocation: ffmpegInstaller.path,
             noWarnings: true,

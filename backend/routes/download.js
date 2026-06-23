@@ -21,7 +21,8 @@ router.get('/info', async (req, res) => {
             noCheckCertificate: true,
             noPlaylist: true,
             jsRuntimes: 'nodejs',
-            ffmpegLocation: ffmpegInstaller.path
+            ffmpegLocation: ffmpegInstaller.path,
+            format: 'bestaudio/best/worst'
         };
         const cookiesPath = path.join(__dirname, '..', 'cookies.txt');
         if (fs.existsSync(cookiesPath)) {
