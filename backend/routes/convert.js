@@ -23,7 +23,9 @@ const processConversion = (jobId, job) => {
             f: audioOnly ? 'bestaudio' : 'bestvideo+bestaudio/best',
             mergeOutputFormat: 'mkv',
             ffmpegLocation: ffmpegInstaller.path,
-            noWarnings: true
+            noWarnings: true,
+            jsRuntimes: 'nodejs',
+            extractorArgs: 'youtube:player_client=android'
         });
         
         let ytdlError = '';

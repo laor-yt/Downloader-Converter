@@ -92,7 +92,11 @@ const MediaProcessor = () => {
       const response = await axios.get(`${API_BASE_URL}/api/download/info?url=${encodeURIComponent(url)}`);
       setInfo(response.data);
     } catch (err) {
-      setError('Failed to fetch media info. Ensure the URL is valid and accessible.');
+      if (err.response && err.response.data && err.response.data.details) {
+        setError(`Backend Error: ${err.response.data.details}`);
+      } else {
+        setError('Failed to fetch media info. Ensure the URL is valid and accessible.');
+      }
     } finally {
       setLoading(false);
     }

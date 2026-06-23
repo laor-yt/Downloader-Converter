@@ -19,6 +19,7 @@ router.get('/info', async (req, res) => {
             noCheckCertificate: true,
             youtubeSkipDashManifest: true,
             noPlaylist: true,
+            jsRuntimes: 'nodejs',
             extractorArgs: 'youtube:player_client=android',
         });
 
@@ -37,7 +38,7 @@ router.get('/info', async (req, res) => {
         });
     } catch (error) {
         console.error("Info Error:", error);
-        res.status(500).json({ error: 'Failed to fetch media info.' });
+        res.status(500).json({ error: 'Failed to fetch media info.', details: error.stderr || error.message || String(error) });
     }
 });
 
