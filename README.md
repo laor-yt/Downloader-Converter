@@ -29,6 +29,20 @@ We have included automated startup scripts to make running the project as easy a
 
 ---
 
+## Troubleshooting
+
+### YouTube "Sign in to confirm you're not a bot"
+If you deploy this application to a cloud provider like Render, AWS, or DigitalOcean, YouTube may block the server's IP address and return a `403 Forbidden` or `Sign in to confirm you're not a bot` error.
+
+To bypass this, you need to provide your YouTube cookies:
+1. Install a browser extension like [Get cookies.txt LOCALLY](https://chrome.google.com/webstore/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc) on Chrome.
+2. Go to youtube.com and ensure you are signed in (or at least loaded the page).
+3. Export your cookies and save the file exactly as `cookies.txt`.
+4. Place the `cookies.txt` file inside the `backend/` directory of your project.
+5. Deploy or push your code again. The backend will automatically detect `cookies.txt` and use it to bypass the block!
+
+---
+
 ## 🛠 Manual Installation & Setup
 
 If you prefer to run the project manually, follow these steps:

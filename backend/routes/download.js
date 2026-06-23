@@ -12,16 +12,22 @@ router.get('/info', async (req, res) => {
 
     try {
         // We use youtube-dl-exec to get info for both youtube and generic media urls
-        const info = await youtubedl(url, {
+        const fs = require('fs');
+        const path = require('path');
+        const options = {
             dumpSingleJson: true,
             noWarnings: true,
-            noCallHome: true,
             noCheckCertificate: true,
-            youtubeSkipDashManifest: true,
             noPlaylist: true,
             jsRuntimes: 'nodejs',
-            extractorArgs: 'youtube:player_client=android',
-        });
+            extractorArgs: 'youtube:player_client=android,ios,web',
+        };
+        const cookiesPath = path.join(__dirname, '..', 'cookies.txt');
+        if (fs.existsSync(cookiesPath)) {
+            options.cookies = cookiesPath;
+        }
+
+        const info = await youtubedl(url, options);
 
         res.json({
             title: info.title || 'Unknown Title',

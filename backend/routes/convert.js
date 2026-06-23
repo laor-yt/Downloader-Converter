@@ -18,15 +18,21 @@ const processConversion = (jobId, job) => {
     job.inputFile = tempVideoFile;
 
     try {
-        const ytdlProcess = youtubedl.exec(url, {
+        const options = {
             o: tempVideoFile,
             f: audioOnly ? 'bestaudio' : 'bestvideo+bestaudio/best',
             mergeOutputFormat: 'mkv',
             ffmpegLocation: ffmpegInstaller.path,
             noWarnings: true,
             jsRuntimes: 'nodejs',
-            extractorArgs: 'youtube:player_client=android'
-        });
+            extractorArgs: 'youtube:player_client=android,ios,web'
+        };
+        const cookiesPath = path.join(__dirname, '..', 'cookies.txt');
+        if (fs.existsSync(cookiesPath)) {
+            options.cookies = cookiesPath;
+        }
+
+        const ytdlProcess = youtubedl.exec(url, options);
         
         let ytdlError = '';
         if (ytdlProcess.stderr) {
